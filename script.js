@@ -13,15 +13,28 @@ const btnNew = document.querySelector('.btn--new');
 const btnRoll = document.querySelector('.btn--roll');
 const btnHold = document.querySelector('.btn--hold');
 
-// Starting conditions
-score0Ele.textContent = 0;
-score1Ele.textContent = 0;
-diceEle.classList.add('hidden');
+let scores, currentScore, activePlayer, playing;
 
-let scores = [0, 0];
-let currentScore = 0;
-let activePlayer = 0;
-let playing = true;
+// Starting conditions
+const init = function () {
+    scores = [0, 0];
+    currentScore = 0;
+    activePlayer = 0;
+    playing = true;
+
+    score0Ele.textContent = 0;
+    score1Ele.textContent = 0;
+    current0Ele.textContent = 0;
+    current1Ele.textContent = 0;
+
+    diceEle.classList.add('hidden');
+    player0Ele.classList.remove('player--winner');
+    player1Ele.classList.remove('player--winner');
+    player1Ele.classList.remove('player--active');
+    player0Ele.classList.add('player--active');
+};
+
+init();
 
 const switchPlayer = function () {
     document.getElementById(`current--${activePlayer}`).textContent = 0;
@@ -61,7 +74,7 @@ btnHold.addEventListener('click', function () {
 
 
         // 2. Check if player's score is >= 100
-        if (scores[activePlayer] >= 100) {
+        if (scores[activePlayer] >= 10) {
             // Finish the game.
             playing = false;
             diceEle.classList.add('hidden');
@@ -73,3 +86,5 @@ btnHold.addEventListener('click', function () {
         }
     }
 });
+
+btnNew.addEventListener('click', init);
